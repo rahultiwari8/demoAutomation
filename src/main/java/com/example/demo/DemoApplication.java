@@ -2,14 +2,16 @@ package com.example.demo;
 
 import config.PlaywrightConfig;
 import config.SeleniumConfig;
+import javabased.PageObjectModel;
+import javabased.WebDriver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-//@ComponentScan(basePackages = "config")
-@Import({SeleniumConfig.class, PlaywrightConfig.class})
+@ComponentScan(basePackages = {"config","com.example.demo","javabased"})
+//Import({SeleniumConfig.class, PlaywrightConfig.class,PageObjectModel.class, WebDriver.class})
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -26,14 +28,17 @@ public class DemoApplication {
 
 		//value injection
 		SeleniumConfig bean = context.getBean(SeleniumConfig.class);
-		PlaywrightConfig playWrightbean = context.getBean(PlaywrightConfig.class);
-		String browser = bean.getBrowser();
-		System.out.println("Browser - > "+browser );
-		System.out.println(bean.getUrl());
+//		PlaywrightConfig playWrightbean = context.getBean(PlaywrightConfig.class);
+//		String browser = bean.getBrowser();
+//		System.out.println("Browser - > "+browser );
+//		System.out.println(bean.getUrl());
+//
+//		String PlayWrightBrowser = playWrightbean.getBrowser();
+//		System.out.println("Browser - > "+PlayWrightBrowser );
+//		System.out.println(playWrightbean.getmode());
 
-		String PlayWrightBrowser = playWrightbean.getBrowser();
-		System.out.println("Browser - > "+PlayWrightBrowser );
-		System.out.println(playWrightbean.getmode());
+		var pageObjectModel = context.getBean(PageObjectModel.class);
+		pageObjectModel.validatePageHeading("login page");
 
 
 	}
